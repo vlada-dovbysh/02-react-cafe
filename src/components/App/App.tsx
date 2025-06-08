@@ -8,22 +8,22 @@ import VoteStats from "../VoteStats/VoteStats";
 
 
 function App() {
-  const [value, setValue] = useState<Votes>({ good: 0, neutral: 0, bad: 0 });
+  const [votes, setVotes] = useState<Votes>({ good: 0, neutral: 0, bad: 0 });
 
   function handleVote(type: VoteType) {
-    setValue ({
-      ...value,
-      [type]: value[type] + 1,
+    setVotes({
+      ...votes,
+      [type]: votes[type] + 1,
     });
   }
 
   function resetVotes() {
-    setValue({ good: 0, neutral: 0, bad: 0 });
+    setVotes({ good: 0, neutral: 0, bad: 0 });
   }
 
-  const totalVotes = value.bad + value.good + value.neutral;
-  const positiveRate = totalVotes === 0 ? 0 : Math.round((value.good / totalVotes) * 100);
-  const canReset = totalVotes > 0 ? true : false;
+  const totalVotes = votes.bad + votes.good + votes.neutral;
+  const positiveRate = totalVotes === 0 ? 0 : Math.round((votes.good / totalVotes) * 100);
+  const canReset = totalVotes > 0;
 
   return (
     <>
@@ -36,7 +36,7 @@ function App() {
         />
         {totalVotes > 0 ? (
           <VoteStats
-            votes={value}
+            votes={votes}
             totalVotes={totalVotes}
             positiveRate={positiveRate}
           />
